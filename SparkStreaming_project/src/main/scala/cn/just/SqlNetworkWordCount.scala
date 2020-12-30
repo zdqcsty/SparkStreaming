@@ -8,19 +8,19 @@ import org.apache.spark.sql.{SQLContext, SparkSession}
 import org.apache.spark.streaming.{Seconds, StreamingContext, Time}
 
 /**
-  * Spark Streaming整合Spark SQL
-  */
+ * Spark Streaming整合Spark SQL
+ */
 object SqlNetworkWordCount {
 
   def main(args: Array[String]) {
 
-    val conf =new SparkConf()
+    val conf = new SparkConf()
       .setMaster("local[2]")
       .setAppName("SqlNetworkWordCount")
 
-    val ssc=new StreamingContext(conf,Seconds(5))
+    val ssc = new StreamingContext(conf, Seconds(5))
 
-    val lines=ssc.socketTextStream("hadoop-senior.shinelon.com",12345)
+    val lines = ssc.socketTextStream("hadoop-senior.shinelon.com", 12345)
     val words = lines.flatMap(_.split(" "))
     //RDD=>DataFrame
     words.foreachRDD { (rdd: RDD[String], time: Time) =>
@@ -51,7 +51,8 @@ object SqlNetworkWordCount {
 
   /** Lazily instantiated singleton instance of SparkSession */
   object SparkSessionSingleton {
-    @transient  private var instance: SparkSession = _
+    @transient private var instance: SparkSession = _
+
     def getInstance(sparkConf: SparkConf): SparkSession = {
       if (instance == null) {
         instance = SparkSession

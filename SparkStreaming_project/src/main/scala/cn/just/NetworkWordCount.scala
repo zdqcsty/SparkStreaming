@@ -15,15 +15,15 @@ object NetworkWordCount {
     new File("./bin/winutils.exe").createNewFile()
 
 
-    val conf =new SparkConf()
+    val conf = new SparkConf()
       .setMaster("local[2]")
       .setAppName("NetworkWordCount")
 
-    val ssc=new StreamingContext(conf,Seconds(5))
+    val ssc = new StreamingContext(conf, Seconds(5))
     //使用nc工具：nc -lk 12345
-    val lines=ssc.socketTextStream("hadoop-senior.shinelon.com",12345)
+    val lines = ssc.socketTextStream("hadoop-senior.shinelon.com", 12345)
 
-    val results=lines.flatMap(_.split(" ")).map(word=>(word,1)).reduceByKey(_+_)
+    val results = lines.flatMap(_.split(" ")).map(word => (word, 1)).reduceByKey(_ + _)
 
     results.print()
 
