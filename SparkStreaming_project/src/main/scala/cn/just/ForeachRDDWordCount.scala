@@ -50,10 +50,8 @@ object ForeachRDDWordCount {
       })
     })
 
-
     //启动Spark Streaming
     ssc.start()
-
     ssc.awaitTermination()
   }
 

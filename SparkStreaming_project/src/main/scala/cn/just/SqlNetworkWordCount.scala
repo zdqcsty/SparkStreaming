@@ -48,7 +48,6 @@ object SqlNetworkWordCount {
   /** Case class for converting RDD to DataFrame */
   case class Record(word: String)
 
-
   /** Lazily instantiated singleton instance of SparkSession */
   object SparkSessionSingleton {
     @transient private var instance: SparkSession = _

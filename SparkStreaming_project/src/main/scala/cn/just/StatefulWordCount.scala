@@ -27,16 +27,13 @@ object StatefulWordCount {
 
     //使用nc工具：nc -lk 12345
     val lines = ssc.socketTextStream("hadoop-senior.shinelon.com", 12345)
-
     val results = lines.flatMap(_.split(" ")).map(word => (word, 1)).reduceByKey(_ + _)
-
     val state = results.updateStateByKey[Int](updateFunc)
 
     state.print()
 
     //启动Spark Streaming
     ssc.start()
-
     ssc.awaitTermination()
   }
 

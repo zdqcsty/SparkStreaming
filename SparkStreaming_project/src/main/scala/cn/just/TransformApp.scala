@@ -35,7 +35,6 @@ object TransformApp {
     checkLog.print()
 
     ssc.start()
-
     ssc.awaitTermination()
   }
 
